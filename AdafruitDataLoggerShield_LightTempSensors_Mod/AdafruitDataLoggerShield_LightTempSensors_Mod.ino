@@ -69,7 +69,8 @@ void setup() {
   }
 
 void loop() {
-
+  i = 0;
+  
   dataString = String(id);
   dataString = String(',');
   DateTime now = rtc.now();
@@ -104,7 +105,7 @@ void loop() {
     break; //exit the while loop.
     }
   }
-
+ 
   serial_event=0; //reset the serial event flag
   
   dataString += ",";
@@ -115,7 +116,7 @@ void loop() {
   if (dataFile) { // if the file is available, write to it
     dataFile.println(dataString);
     dataFile.close();
-   // Serial.println(dataString); // print to the serial port too:
+    Serial.println(dataString); // print to the serial port too:
   }
 
   else { 
@@ -123,7 +124,11 @@ void loop() {
     } // if the file isn't open, pop up an error:
     
     id ++; // increase one ID next iteration
+    // clear dataString and DO_data
     dataString = "";
-    String(DO_data) = "";
+    i= 0;
+    for (i = 0; i < 20; i++) {    
+        DO_data[i] = 0; 
+    }
     delay(5000); //delay 5 minutes = 5*60*1000 ms
     } //end main loop
